@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="620.0" minWidth="940.0" prefHeight="620.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentController">
+	<top>
+		<BorderPane prefHeight="200.0" prefWidth="940.0" BorderPane.alignment="CENTER">
+			<top>
+				<MenuBar BorderPane.alignment="CENTER">
+					<menus>
+						<Menu mnemonicParsing="false" text="File">
+							<items>
+								<MenuItem mnemonicParsing="false" text="Close" />
+							</items>
+						</Menu>
+					</menus>
+				</MenuBar>
+			</top>
+			<center>
+				<GridPane alignment="CENTER" cache="true" BorderPane.alignment="CENTER">
+					<columnConstraints>
+						<ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" />
+						<ColumnConstraints maxWidth="-Infinity" prefWidth="300.0" />
+						<ColumnConstraints fillWidth="false" maxWidth="-Infinity" />
+						<ColumnConstraints maxWidth="-Infinity" prefWidth="300.0" />
+						<ColumnConstraints fillWidth="false" maxWidth="-Infinity" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="37.0" text="MSSV:" GridPane.halignment="RIGHT">
+							<GridPane.margin>
+								<Insets right="5.0" />
+							</GridPane.margin>
+						</Label>
+						<Label alignment="CENTER" text="Họ đệm:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+							<GridPane.margin>
+								<Insets right="5.0" />
+							</GridPane.margin>
+						</Label>
+						<Label alignment="CENTER" text="Tên:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+							<GridPane.margin>
+								<Insets right="5.0" />
+							</GridPane.margin>
+						</Label>
+						<TextField prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1">
+							<GridPane.margin>
+								<Insets left="10.0" right="30.0" />
+							</GridPane.margin>
+						</TextField>
+						<TextField prefHeight="25.0" prefWidth="423.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+							<GridPane.margin>
+								<Insets left="10.0" right="30.0" />
+							</GridPane.margin>
+						</TextField>
+						<TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+							<GridPane.margin>
+								<Insets left="10.0" right="30.0" />
+							</GridPane.margin>
+						</TextField>
+						<Label text="Giới tính:" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+							<GridPane.margin>
+								<Insets right="5.0" />
+							</GridPane.margin>
+						</Label>
+						<Label text="Địa chỉ:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+							<GridPane.margin>
+								<Insets right="5.0" />
+							</GridPane.margin>
+						</Label>
+						<Label text="Số điện thoại:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+							<GridPane.margin>
+								<Insets right="5.0" />
+							</GridPane.margin>
+						</Label>
+						<TextField GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+							<GridPane.margin>
+								<Insets left="10.0" right="30.0" />
+							</GridPane.margin>
+						</TextField>
+						<TextField GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+							<GridPane.margin>
+								<Insets left="10.0" right="30.0" />
+							</GridPane.margin>
+						</TextField>
+						<Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Thêm học sinh" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+							<GridPane.margin>
+								<Insets left="10.0" right="10.0" />
+							</GridPane.margin>
+						</Button>
+						<Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Xoá học sinh" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+							<GridPane.margin>
+								<Insets left="10.0" right="10.0" />
+							</GridPane.margin>
+						</Button>
+						<Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Sửa học sinh" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+							<GridPane.margin>
+								<Insets left="10.0" right="10.0" />
+							</GridPane.margin>
+						</Button>
+						<ChoiceBox prefWidth="484.0" GridPane.columnIndex="3">
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+							<GridPane.margin>
+								<Insets left="10.0" right="30.0" />
+							</GridPane.margin>
+						</ChoiceBox>
+					</children>
+					<BorderPane.margin>
+						<Insets bottom="15.0" top="15.0" />
+					</BorderPane.margin>
+				</GridPane>
+			</center>
+		</BorderPane>
+	</top>
+	<center>
+		<TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<columns>
+            <TableColumn fx:id="number" prefWidth="86.0" text="STT" />
+				<TableColumn fx:id="studentId" minWidth="0.0" prefWidth="125.0" text="MSSV" />
+				<TableColumn fx:id="lastName" minWidth="0.0" prefWidth="128.0" text="Họ đệm" />
+				<TableColumn fx:id="firstName" prefWidth="107.0" text="Tên" />
+				<TableColumn fx:id="gender" minWidth="0.0" prefWidth="90.0" text="Giới tính" />
+				<TableColumn fx:id="address" minWidth="0.0" prefWidth="208.0" text="Địa chỉ" />
+				<TableColumn fx:id="phoneNumber" prefWidth="191.0" text="Số điện thoại" />
+			</columns>
+			<columnResizePolicy>
+				<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+			</columnResizePolicy>
+		</TableView>
+	</center>
+</BorderPane>

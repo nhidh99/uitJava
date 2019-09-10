@@ -1,0 +1,4 @@
+Max = 9
+Min = 1
+Primes = [2, 3, 5, 7]
+Sum = 45
