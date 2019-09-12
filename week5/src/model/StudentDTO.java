@@ -16,6 +16,7 @@ public class StudentDTO {
 	}
 
 	public void setStudentId(String studentId) {
+		studentId = studentId.trim().replaceAll(" ", "");
 		this.studentId = new SimpleStringProperty(studentId);
 	}
 
@@ -24,6 +25,7 @@ public class StudentDTO {
 	}
 
 	public void setFirstName(String firstName) {
+		firstName = firstName.trim().replaceAll(" ", "");
 		this.firstName = new SimpleStringProperty(firstName);
 	}
 
@@ -32,6 +34,7 @@ public class StudentDTO {
 	}
 
 	public void setLastName(String lastName) {
+		lastName = lastName.trim().replaceAll(" +", " ");
 		this.lastName = new SimpleStringProperty(lastName);
 	}
 
@@ -48,6 +51,7 @@ public class StudentDTO {
 	}
 
 	public void setAddress(String address) {
+		address = address.trim().replaceAll(" +", " ");
 		this.address = new SimpleStringProperty(address);
 	}
 

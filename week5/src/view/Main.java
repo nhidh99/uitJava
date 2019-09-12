@@ -12,7 +12,6 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("final.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-
 			primaryStage.setTitle("Quản lí học sinh");
 			primaryStage.setScene(scene);
 			primaryStage.show();
