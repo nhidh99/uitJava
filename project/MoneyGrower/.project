@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>MoneyGrower</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>lib</name>
+			<type>2</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/lib</location>
+		</link>
+		<link>
+			<name>src/application/app.css</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/app.css</location>
+		</link>
+		<link>
+			<name>src/application/login.fxml</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/login.fxml</location>
+		</link>
+	</linkedResources>
+</projectDescription>
