@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DangNhapController">
    <children>
-      <TextField fx:id="tfTaiKhoan" layoutX="62.0" layoutY="196.0" prefHeight="40.0" prefWidth="248.0" promptText="Tên tài khoản" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
+      <TextField fx:id="tfTaiKhoan" layoutX="52.0" layoutY="236.0" prefHeight="40.0" prefWidth="272.0" promptText="Tên tài khoản" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
          <font>
             <Font size="16.0" />
          </font>
@@ -18,7 +18,7 @@
             <Insets left="45.0" />
          </padding>
       </TextField>
-      <PasswordField fx:id="pfMatKhau" layoutX="62.0" layoutY="251.0" prefHeight="40.0" prefWidth="248.0" promptText="Mật khẩu" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
+      <PasswordField fx:id="pfMatKhau" layoutX="52.0" layoutY="291.0" prefHeight="40.0" prefWidth="272.0" promptText="Mật khẩu" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
          <font>
             <Font size="16.0" />
          </font>
@@ -26,40 +26,53 @@
             <Insets left="45.0" />
          </padding>
       </PasswordField>
-      <Button layoutX="50.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleDangNhap" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #4267B2; -fx-background-radius: 10;" text="Đăng nhập" textFill="WHITE">
+      <Button layoutX="52.0" layoutY="365.0" mnemonicParsing="false" onAction="#handleDangNhap" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #4267B2; -fx-background-radius: 10;" text="Đăng nhập" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="50.0" layoutY="379.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #228B22; -fx-background-radius: 10;" text="Đăng kí" textFill="WHITE">
+      <Button layoutX="52.0" layoutY="421.0" mnemonicParsing="false" onAction="#handleDangKi" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #228B22; -fx-background-radius: 10;" text="Đăng kí" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Label layoutX="78.0" layoutY="202.0" text="👤" textFill="GREY">
+      <Label layoutX="67.0" layoutY="241.0" text="👤" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="78.0" layoutY="257.0" text="🔑" textFill="GREY">
+      <Label layoutX="67.0" layoutY="296.0" text="🔑" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="231.0" layoutY="54.0" prefHeight="98.0" prefWidth="80.0" style="-fx-rotate: 10; -fx-scale-x: -1;" text="🍃" textFill="DARKGREEN">
+      <Label layoutX="231.0" layoutY="46.0" prefHeight="98.0" prefWidth="80.0" style="-fx-rotate: 10; -fx-scale-x: -1;" text="🍃" textFill="FORESTGREEN">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>
       </Label>
-      <Label layoutX="57.0" layoutY="33.0" text="💰MONEY" textFill="DARKGREEN">
+      <Label layoutX="57.0" layoutY="25.0" text="💰MONEY" textFill="FORESTGREEN">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="98.0" text="GROWER" textFill="DARKGREEN">
+      <Label layoutX="59.0" layoutY="90.0" text="GROWER" textFill="FORESTGREEN">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
+      </Label>
+      <Button layoutX="52.0" layoutY="479.0" mnemonicParsing="false" onAction="#handleThoat" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: brown; -fx-background-radius: 10;" text="Thoát" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutY="171.0" style="-fx-background-color: #228B22;" text="ĐĂNG NHẬP" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <padding>
+            <Insets bottom="2.0" top="2.0" />
+         </padding>
       </Label>
    </children>
 </AnchorPane>

@@ -36,5 +36,15 @@
 			<type>1</type>
 			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/login.fxml</location>
 		</link>
+		<link>
+			<name>src/application/signup.fxml</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/signup.fxml</location>
+		</link>
+		<link>
+			<name>src/application/user.fxml</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/user.fxml</location>
+		</link>
 	</linkedResources>
 </projectDescription>

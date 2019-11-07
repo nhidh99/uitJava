@@ -1,19 +1,19 @@
 package DTO;
 
 public class NguoiDungDTO {
-	private String maNguoiDung;
+	private Integer maNguoiDung;
 	private String tenTaiKhoan;
 	private String matKhau;
 	private String tenNguoiDung;
-	private Integer tongSoDu;
-	
-	
-	public String getMaNguoiDung() {
-		return maNguoiDung;
-	}
-	
-	public void setMaNguoiDung(String maNguoiDung) {
+	private Long tongSoDu;
+
+	public NguoiDungDTO(Integer maNguoiDung, String tenTaiKhoan, String matKhau, String tenNguoiDung,
+			Long tongSoDu) {
 		this.maNguoiDung = maNguoiDung;
+		this.tenTaiKhoan = tenTaiKhoan;
+		this.matKhau = matKhau;		
+		this.tenNguoiDung = tenNguoiDung;
+		this.tongSoDu = tongSoDu;
 	}
 
 	public String getTenTaiKhoan() {
@@ -40,11 +40,19 @@ public class NguoiDungDTO {
 		this.tenNguoiDung = tenNguoiDung;
 	}
 
-	public Integer getTongSoDu() {
+	public Long getTongSoDu() {
 		return tongSoDu;
 	}
 
-	public void setTongSoDu(Integer tongSoDu) {
+	public void setTongSoDu(Long tongSoDu) {
 		this.tongSoDu = tongSoDu;
+	}
+
+	public Integer getMaNguoiDung() {
+		return maNguoiDung;
+	}
+
+	public void setMaNguoiDung(Integer maNguoiDung) {
+		this.maNguoiDung = maNguoiDung;
 	}
 }
