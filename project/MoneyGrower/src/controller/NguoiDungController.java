@@ -33,6 +33,7 @@ public class NguoiDungController implements Initializable {
 
 	@FXML
 	PasswordField pfMatKhau2;
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

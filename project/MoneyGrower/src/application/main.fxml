@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -21,7 +23,34 @@
         <tabs>
           <Tab style="-fx-pref-width: 70;" text="💰">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <top>
+                              <Label text="SỔ GIAO DỊCH" textFill="FORESTGREEN" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </BorderPane.margin>
+                              </Label>
+                           </top>
+                           <right>
+                              <ScrollPane hbarPolicy="NEVER" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <TilePane fx:id="tpSoGiaoDich" prefHeight="568.0" prefWidth="464.0">
+                                       <padding>
+                                          <Insets right="-5.0" />
+                                       </padding></TilePane>
+                                 </content>
+                                 <BorderPane.margin>
+                                    <Insets left="-2.0" />
+                                 </BorderPane.margin>
+                              </ScrollPane>
+                           </right>
+                        </BorderPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="📊">
@@ -42,30 +71,31 @@
                           <columnConstraints>
                             <ColumnConstraints />
                             <ColumnConstraints />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
                           </columnConstraints>
                           <rowConstraints>
                               <RowConstraints />
                             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Người dùng:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                              <Label text="Họ và tên:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Label text="Tài khoản:" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                              <Label text="Tài khoản:" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <VBox prefHeight="103.0" prefWidth="300.0" spacing="15.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                              <VBox prefHeight="103.0" prefWidth="300.0" spacing="15.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#handleCapNhatNguoiDung" prefWidth="5000.0" style="-fx-border-color: transparent; -fx-background-color: #228B22; -fx-background-radius: 10;" text="Cập nhật" textFill="WHITE">
                                        <font>
@@ -82,12 +112,12 @@
                                     <Insets top="15.0" />
                                  </GridPane.margin>
                               </VBox>
-                              <Label fx:id="lbNguoiDung" text="?" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                              <Label fx:id="lbNguoiDung" text="?" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lbTaiKhoan" text="?" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                              <Label fx:id="lbTaiKhoan" text="?" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -112,11 +142,21 @@
                                     <Insets bottom="-50.0" left="10.0" top="-50.0" />
                                  </GridPane.margin>
                               </Separator>
-                              <Separator prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                              <Separator prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
                                  <GridPane.margin>
                                     <Insets left="-40.0" right="-40.0" top="10.0" />
                                  </GridPane.margin>
                               </Separator>
+                              <Label text="Mã ND:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbMaNguoiDung" text="?" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </GridPane>
                      </children></AnchorPane>
@@ -148,17 +188,17 @@
    <top>
       <AnchorPane prefHeight="85.0" prefWidth="550.0" style="-fx-background-color: #228B22;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="56.0" layoutY="19.0" text="💰 MONEY GROWER" textFill="WHITE">
+            <Label layoutX="52.0" layoutY="19.0" text="💰 MONEY GROWER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="344.0" layoutY="20.0" prefHeight="58.0" prefWidth="40.0" style="-fx-scale-x: -1; -fx-rotate: -45;" text="🍃" textFill="WHITE">
+            <Label layoutX="340.0" layoutY="20.0" prefHeight="58.0" prefWidth="40.0" style="-fx-scale-x: -1; -fx-rotate: -45;" text="🍃" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
             </Label>
-            <Button layoutX="404.0" layoutY="20.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="95.0" style="-fx-background-radius: 30; -fx-background-color: white;" text="THÊM" textAlignment="CENTER" textFill="FORESTGREEN">
+            <Button layoutX="411.0" layoutY="20.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="95.0" style="-fx-background-radius: 30; -fx-background-color: white;" text="THÊM" textAlignment="CENTER" textFill="FORESTGREEN">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

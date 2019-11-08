@@ -1,15 +1,18 @@
 package controller;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import BUS.NguoiDungBUS;
 import DTO.NguoiDungDTO;
+import custom.PaymentBoard;
 import helper.AlertHelper;
 import helper.MoneyFormatHelper;
 import helper.PopupHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -17,16 +20,31 @@ import javafx.stage.WindowEvent;
 public class MainController {
 
 	@FXML
+	Label lbMaNguoiDung;
+	@FXML
 	Label lbNguoiDung;
 	@FXML
 	Label lbTaiKhoan;
 	@FXML
 	Label lbSoDu;
 
+	@FXML
+	TilePane tpSoGiaoDich;
+
 	public void initialize(NguoiDungDTO nguoiDung) {
+		if (nguoiDung.getMaNguoiDung() != null) {
+			lbMaNguoiDung.setText(nguoiDung.getMaNguoiDung().toString());
+		}
 		lbNguoiDung.setText(nguoiDung.getTenNguoiDung());
 		lbTaiKhoan.setText(nguoiDung.getTenTaiKhoan());
 		lbSoDu.setText(MoneyFormatHelper.format(nguoiDung.getTongSoDu(), "VND"));
+		try {
+			tpSoGiaoDich.getChildren().clear();
+			tpSoGiaoDich.getChildren()
+					.add(new PaymentBoard(Integer.parseInt(lbMaNguoiDung.getText()), LocalDate.now().getMonthValue()));
+		}  catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void handleCapNhatNguoiDung() {
