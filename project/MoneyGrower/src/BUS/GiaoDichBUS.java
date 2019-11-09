@@ -16,4 +16,12 @@ public class GiaoDichBUS {
 	public static boolean insertGiaoDich(GiaoDichDTO giaoDich) throws SQLException {
 		return GiaoDichDAO.insertGiaoDich(giaoDich);
 	}
+
+	public static boolean updateGiaoDich(GiaoDichDTO giaoDich) throws SQLException {
+		return GiaoDichDAO.updateGiaoDich(giaoDich);
+	}
+
+	public static boolean deleteGiaoDich(Integer maGiaoDich) throws SQLException {
+		return GiaoDichDAO.deleteGiaoDich(maGiaoDich);
+	}
 }

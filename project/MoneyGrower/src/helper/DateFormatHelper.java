@@ -27,4 +27,12 @@ public class DateFormatHelper {
 			}
 		};
 	}
+	
+	public static String fromLocalDate(LocalDate date) {
+		return date.format(DateTimeFormatter.ofPattern(pattern));
+	}
+	
+	public static LocalDate fromString(String str) {
+		return LocalDate.parse(str, DateTimeFormatter.ofPattern(pattern));
+	}
 }

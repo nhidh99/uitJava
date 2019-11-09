@@ -3,14 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoDichController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NganSachController">
    <children>
       <Label layoutX="240.0" layoutY="51.0" prefHeight="98.0" prefWidth="80.0" style="-fx-rotate: 10; -fx-scale-x: -1;" text="🍃" textFill="FORESTGREEN">
          <font>
@@ -27,30 +26,12 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbbLoaiThuChi" layoutX="53.0" layoutY="248.0" prefHeight="25.0" prefWidth="272.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-border-color: lightgray;">
+      <ComboBox fx:id="cbbLoaiNganSach" layoutX="53.0" layoutY="245.0" prefHeight="25.0" prefWidth="272.0" promptText="Loại ngân sách" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-border-color: lightgray;">
          <padding>
             <Insets left="33.0" />
          </padding>
       </ComboBox>
-      <ComboBox fx:id="cbbLoaiGiaoDich" layoutX="53.0" layoutY="301.0" prefHeight="25.0" prefWidth="272.0" promptText="Chọn loại giao dịch" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-border-color: lightgray;">
-         <padding>
-            <Insets left="33.0" />
-         </padding>
-      </ComboBox>
-      <DatePicker fx:id="dpNgayGiaoDich" layoutX="53.0" layoutY="355.0" prefHeight="39.0" prefWidth="272.0" promptText="Ngày giao dịch" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-border-color: lightgray; -fx-background-color: white;" stylesheets="@datepicker.css">
-         <padding>
-            <Insets left="33.0" />
-         </padding>
-      </DatePicker>
-      <TextField fx:id="tfGhiChu" layoutX="52.0" layoutY="408.0" prefHeight="40.0" prefWidth="272.0" promptText="Ghi chú" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <padding>
-            <Insets left="45.0" />
-         </padding>
-      </TextField>
-      <TextField fx:id="tfGiaTri" layoutX="55.0" layoutY="460.0" prefHeight="40.0" prefWidth="272.0" promptText="Giá trị" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
+      <TextField fx:id="tfGiaTri" layoutX="56.0" layoutY="464.0" prefHeight="40.0" prefWidth="272.0" promptText="Giá trị" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
          <font>
             <Font size="16.0" />
          </font>
@@ -65,7 +46,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleXoa" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #4267B2; -fx-background-radius: 10;" text="Xoá giao dịch" textFill="WHITE">
+            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #4267B2; -fx-background-radius: 10;" text="Xoá ngân sách" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -77,7 +58,7 @@
             </Button>
          </children>
       </VBox>
-      <Label layoutX="66.0" layoutY="465.0" text="💰" textFill="GREY">
+      <Label layoutX="67.0" layoutY="469.0" text="💰" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -87,7 +68,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbTieuDe" alignment="CENTER" layoutY="178.0" style="-fx-background-color: #228B22;" text="THÊM GIAO DỊCH" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Label fx:id="lbTieuDe" alignment="CENTER" layoutY="178.0" style="-fx-background-color: #228B22;" text="THÊM NGÂN SÁCH" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -95,7 +76,7 @@
             <Insets bottom="2.0" top="2.0" />
          </padding>
       </Label>
-      <Label layoutX="66.0" layoutY="413.0" text="✏" textFill="GREY">
+      <Label layoutX="67.0" layoutY="413.0" text="✏" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -105,14 +86,39 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="67.0" layoutY="306.0" text="💳" textFill="GREY">
+      <Label layoutX="67.0" layoutY="250.0" text="💳" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="67.0" layoutY="253.0" text="🔖" textFill="GREY">
+      <ComboBox fx:id="cbbMocThoiGian" layoutX="53.0" layoutY="300.0" prefHeight="25.0" prefWidth="272.0" promptText="Mốc thời gian" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-border-color: lightgray;">
+         <padding>
+            <Insets left="33.0" />
+         </padding>
+      </ComboBox>
+      <Label layoutX="67.0" layoutY="305.0" text="📆" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="360.0" prefHeight="27.0" text="Bắt đầu:" textFill="GREY">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="415.0" prefHeight="27.0" text="Kết thúc:" textFill="GREY">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbNgayBatDau" layoutX="185.0" layoutY="359.0" text="Label" textFill="GREY">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbNgayKetThuc" layoutX="185.0" layoutY="414.0" text="Label" textFill="GREY">
+         <font>
+            <Font size="20.0" />
          </font>
       </Label>
    </children>

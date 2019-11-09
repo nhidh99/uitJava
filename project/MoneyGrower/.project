@@ -32,6 +32,11 @@
 			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/app.css</location>
 		</link>
 		<link>
+			<name>src/application/budget.fxml</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/budget.fxml</location>
+		</link>
+		<link>
 			<name>src/application/datepicker.css</name>
 			<type>1</type>
 			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/datepicker.css</location>

@@ -48,4 +48,32 @@ public class GiaoDichDAO {
 		conn.close();
 		return records > 0;
 	}
+
+	public static boolean updateGiaoDich(GiaoDichDTO giaoDich) throws SQLException {
+		Connection conn = DBHelper.getConnection();
+		String query = "UPDATE GiaoDich SET MaLoaiGiaoDich = ?, NgayGiaoDich = ?, GiaTri = ?, GhiChu = ? "
+				+ "WHERE MaGiaoDich = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setInt(1, giaoDich.getMaLoaiGiaoDich());
+		statement.setString(2, giaoDich.getNgayGiaoDich().toString());
+		statement.setLong(3, giaoDich.getGiaTri());
+		if (giaoDich.getGhiChu() == null) {
+			statement.setNull(4, Types.VARCHAR);
+		}
+		else statement.setString(4, giaoDich.getGhiChu().trim());
+		statement.setInt(5, giaoDich.getMaGiaoDich());
+		int records = statement.executeUpdate();
+		conn.close();
+		return records > 0;
+	}
+
+	public static boolean deleteGiaoDich(Integer maGiaoDich) throws SQLException {
+		Connection conn = DBHelper.getConnection();
+		String query = "DELETE FROM GiaoDich WHERE MaGiaoDich = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setInt(1, maGiaoDich);
+		int records = statement.executeUpdate();
+		conn.close();
+		return records > 0;
+	}
 }

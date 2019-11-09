@@ -4,14 +4,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import BUS.GiaoDichBUS;
 import BUS.LoaiGiaoDichBUS;
-import BUS.NguoiDungBUS;
 import DTO.GiaoDichDTO;
 import DTO.LoaiGiaoDichDTO;
-import DTO.NguoiDungDTO;
 import helper.AlertHelper;
+import helper.ConfirmDialogHelper;
 import helper.DateFormatHelper;
 import helper.MoneyFormatHelper;
 import javafx.fxml.Initializable;
@@ -26,6 +26,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
 
 public class GiaoDichController implements Initializable {
 
@@ -34,6 +36,8 @@ public class GiaoDichController implements Initializable {
 	@FXML
 	TextField tfGiaTri;
 	@FXML
+	Label lbTieuDe;
+	@FXML
 	Label lbFormatGiaTri;
 	@FXML
 	DatePicker dpNgayGiaoDich;
@@ -41,9 +45,16 @@ public class GiaoDichController implements Initializable {
 	ComboBox<String> cbbLoaiThuChi;
 	@FXML
 	ComboBox<LoaiGiaoDichDTO> cbbLoaiGiaoDich;
+	@FXML
+	VBox vbButtons;
+	@FXML
+	Button btnXacNhan;
+	@FXML
+	Button btnHuyBo;
 
 	Integer maNguoiDung;
 	Integer maGiaoDich;
+	boolean isUpdateForm;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -55,11 +66,29 @@ public class GiaoDichController implements Initializable {
 
 	public void initialize(Integer maNguoiDung) {
 		this.maNguoiDung = maNguoiDung;
+		vbButtons.getChildren().remove(1);
 	}
 
-	public void initialize(Integer maNguoiDung, Integer maGiaoDich) {
-		this.maNguoiDung = maNguoiDung;
-		this.maGiaoDich = maGiaoDich;
+	public void initialize(GiaoDichDTO giaoDich) {
+		this.maGiaoDich = giaoDich.getMaGiaoDich();
+		if (giaoDich.getGiaTri() < 0) {
+			cbbLoaiThuChi.getSelectionModel().selectFirst();
+		} else {
+			cbbLoaiThuChi.getSelectionModel().selectLast();
+		}
+
+		cbbLoaiGiaoDich.getSelectionModel()
+				.select(cbbLoaiGiaoDich.getItems().stream()
+						.filter(lgd -> lgd.getMaLoaiGiaoDich().equals(giaoDich.getMaLoaiGiaoDich()))
+						.collect(Collectors.toList()).get(0));
+
+		lbTieuDe.setText("CHI TIẾT GIAO DỊCH");
+		btnXacNhan.setText("Sửa giao dịch");
+		btnHuyBo.setText("Đóng");
+		dpNgayGiaoDich.setValue(giaoDich.getNgayGiaoDich());
+		tfGhiChu.setText(giaoDich.getGhiChu());
+		tfGiaTri.setText(giaoDich.getGiaTri().toString());
+		isUpdateForm = true;
 	}
 
 	private void initTfGiaTri() {
@@ -132,11 +161,25 @@ public class GiaoDichController implements Initializable {
 		if (cbbLoaiGiaoDich.getSelectionModel().getSelectedItem().getGiaoDichThu() == false) {
 			giaTri = -giaTri;
 		}
-		
-		GiaoDichDTO giaoDich = new GiaoDichDTO(null, cbbLoaiGiaoDich.getSelectionModel().getSelectedItem().getMaLoaiGiaoDich(),
-				maNguoiDung, dpNgayGiaoDich.getValue(), giaTri, tfGhiChu.getText());
+
+		GiaoDichDTO giaoDich = new GiaoDichDTO(null,
+				cbbLoaiGiaoDich.getSelectionModel().getSelectedItem().getMaLoaiGiaoDich(), maNguoiDung,
+				dpNgayGiaoDich.getValue(), giaTri, tfGhiChu.getText());
+
 		try {
-			if (GiaoDichBUS.insertGiaoDich(giaoDich)) {
+			if (isUpdateForm) {
+				giaoDich.setMaGiaoDich(maGiaoDich);
+				if (GiaoDichBUS.updateGiaoDich(giaoDich)) {
+					AlertHelper.showAlert("Thành công", "Cập nhật giao dịch thành công");
+					Stage stage = (Stage) lbFormatGiaTri.getScene().getWindow();
+					MainController controller = (MainController) stage.getScene().getUserData();
+					controller.loadPaymentBoard();
+					stage.close();
+				} else {
+					AlertHelper.showAlert("Thất bại", "Cập nhật giao dịch thất bại");
+					tfGiaTri.requestFocus();
+				}
+			} else if (GiaoDichBUS.insertGiaoDich(giaoDich)) {
 				AlertHelper.showAlert("Thành công", "Thêm giao dịch thành công");
 				Stage stage = (Stage) lbFormatGiaTri.getScene().getWindow();
 				MainController controller = (MainController) stage.getScene().getUserData();
@@ -150,9 +193,29 @@ public class GiaoDichController implements Initializable {
 			AlertHelper.showAlert("Thất bại", "Thêm giao dịch thất bại", "Lỗi database");
 		}
 	}
-	
+
 	public void handleHuyBo() {
 		Stage stage = (Stage) lbFormatGiaTri.getScene().getWindow();
 		stage.close();
+	}
+
+	public void handleXoa() {
+		if (ConfirmDialogHelper.confirm("Xác nhận xoá giao dịch?")) {
+			try {
+				if (GiaoDichBUS.deleteGiaoDich(maGiaoDich)) {
+					AlertHelper.showAlert("Thành công", "Xoá giao dịch thành công");
+					Stage stage = (Stage) lbFormatGiaTri.getScene().getWindow();
+					MainController controller = (MainController) stage.getScene().getUserData();
+					controller.loadPaymentBoard();
+					stage.close();
+				}
+				else {
+					AlertHelper.showAlert("Thất bại", "Xoá giao dịch thất bại");
+				}
+			}
+			catch (SQLException ex) {
+				AlertHelper.showAlert("Thất bại", "Xoá giao dịch thất bại", "Lỗi database");
+			}
+		}
 	}
 }

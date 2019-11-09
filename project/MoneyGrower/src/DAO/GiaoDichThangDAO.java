@@ -11,15 +11,11 @@ import DTO.GiaoDichThangDTO;
 import helper.DBHelper;
 
 public class GiaoDichThangDAO {
-	public static List<GiaoDichThangDTO> getDSGiaoDichThang(Integer maNguoiDung, Integer thang, Integer nam) throws SQLException {
+	public static List<GiaoDichThangDTO> getDSGiaoDichThang(Integer maNguoiDung) throws SQLException {
 		Connection conn = DBHelper.getConnection();
-		String query = "SELECT * FROM view_GiaoDichThang " 
-		+ "WHERE MaNguoiDung = ? AND MONTH(NgayGiaoDich) = ? AND YEAR(NgayGiaoDich) = ? "
-				+ "ORDER BY NgayGiaoDich DESC";
+		String query = "SELECT * FROM view_GiaoDichThang WHERE MaNguoiDung = ? ORDER BY NgayGiaoDich DESC";
 		PreparedStatement statement = conn.prepareStatement(query);
 		statement.setInt(1, maNguoiDung);
-		statement.setInt(2, thang);
-		statement.setInt(3, nam);
 		ResultSet rs = statement.executeQuery();
 
 		List<GiaoDichThangDTO> output = new ArrayList<>();

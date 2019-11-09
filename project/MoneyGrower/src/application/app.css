@@ -1,4 +1,4 @@
-.tab .tab-label {
+#tpMain .tab .tab-label {
 	-fx-font-size: 35;
 	-fx-alignment: CENTER;
 	-fx-padding: 12px;
