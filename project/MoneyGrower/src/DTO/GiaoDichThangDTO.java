@@ -1,6 +1,5 @@
 package DTO;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class GiaoDichThangDTO {
@@ -8,9 +7,9 @@ public class GiaoDichThangDTO {
 	private LocalDate ngayGiaoDich;
 	private Long triGia;
 	
-	public GiaoDichThangDTO(Integer maNguoiDung, Timestamp timestamp, Long triGia) {
+	public GiaoDichThangDTO(Integer maNguoiDung, LocalDate ngayGiaoDich, Long triGia) {
 		this.maNguoiDung = maNguoiDung;
-		this.ngayGiaoDich = timestamp.toLocalDateTime().toLocalDate();
+		this.ngayGiaoDich = ngayGiaoDich;
 		this.triGia = triGia;
 	}
 	

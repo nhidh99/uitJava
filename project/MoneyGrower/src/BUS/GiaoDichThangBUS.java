@@ -7,7 +7,7 @@ import DAO.GiaoDichThangDAO;
 import DTO.GiaoDichThangDTO;
 
 public class GiaoDichThangBUS {
-	public static List<GiaoDichThangDTO> getDSGiaoDichThang(int maNguoiDung, int thang) throws SQLException {
-		return GiaoDichThangDAO.getDSGiaoDichThang(maNguoiDung, thang);
+	public static List<GiaoDichThangDTO> getDSGiaoDichThang(int maNguoiDung, int thang, int nam) throws SQLException {
+		return GiaoDichThangDAO.getDSGiaoDichThang(maNguoiDung, thang, nam);
 	}
 }

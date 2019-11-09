@@ -11,19 +11,21 @@ import DTO.GiaoDichThangDTO;
 import helper.DBHelper;
 
 public class GiaoDichThangDAO {
-	public static List<GiaoDichThangDTO> getDSGiaoDichThang(Integer maNguoiDung, Integer thang) throws SQLException {
+	public static List<GiaoDichThangDTO> getDSGiaoDichThang(Integer maNguoiDung, Integer thang, Integer nam) throws SQLException {
 		Connection conn = DBHelper.getConnection();
-		String query = "SELECT * FROM view_GiaoDichThang "
-				+ "WHERE MaNguoiDung = ? AND MONTH(NgayGiaoDich) = ? "
+		String query = "SELECT * FROM view_GiaoDichThang " 
+		+ "WHERE MaNguoiDung = ? AND MONTH(NgayGiaoDich) = ? AND YEAR(NgayGiaoDich) = ? "
 				+ "ORDER BY NgayGiaoDich DESC";
 		PreparedStatement statement = conn.prepareStatement(query);
 		statement.setInt(1, maNguoiDung);
 		statement.setInt(2, thang);
+		statement.setInt(3, nam);
 		ResultSet rs = statement.executeQuery();
 
 		List<GiaoDichThangDTO> output = new ArrayList<>();
 		while (rs.next()) {
-			GiaoDichThangDTO gdt = new GiaoDichThangDTO(maNguoiDung, rs.getTimestamp("NgayGiaoDich"),
+			GiaoDichThangDTO gdt = new GiaoDichThangDTO(maNguoiDung,
+					rs.getTimestamp("NgayGiaoDich").toLocalDateTime().toLocalDate(), 
 					rs.getLong("TongGiaTri"));
 			output.add(gdt);
 		}

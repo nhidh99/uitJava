@@ -1,8 +1,16 @@
 package custom;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import BUS.GiaoDichBUS;
 import BUS.GiaoDichThangBUS;
+import BUS.LoaiGiaoDichBUS;
+import DTO.GiaoDichDTO;
 import DTO.GiaoDichThangDTO;
+import DTO.LoaiGiaoDichDTO;
 import helper.MoneyFormatHelper;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,13 +24,17 @@ import javafx.scene.text.FontWeight;
 
 public class PaymentBoard extends VBox {
 
-	public PaymentBoard(int userID, int month) throws SQLException {
-		GiaoDichThangBUS.getDSGiaoDichThang(userID, month).stream().forEach(gdt -> {
-			HBox hbox = this.createTitleBox(gdt);
-			HBox contentBox1 = this.createContentBox("🎁", "Quà tặng", (long) -2000000);
-			HBox contentBox2 = this.createContentBox("🎁", "Tiền gia đình", (long) 2000000);
-			this.getChildren().addAll(hbox, contentBox1, contentBox2);
-		});
+	public PaymentBoard(int userID, int month, int year) throws SQLException {
+		for (GiaoDichThangDTO gdt : GiaoDichThangBUS.getDSGiaoDichThang(userID, month, year)) {
+			HBox title = this.createTitleBox(gdt);
+			List<HBox> contents = new ArrayList<>();
+			for (GiaoDichDTO gd : GiaoDichBUS.getDSGiaoDichOfMonth(userID, gdt.getNgayGiaoDich())) {
+				HBox content = this.createContentBox(gd);				
+				contents.add(content);
+			}
+			this.getChildren().add(title);
+			this.getChildren().addAll(contents);
+		}
 		this.setPrefWidth(465);
 	}
 
@@ -56,30 +68,31 @@ public class PaymentBoard extends VBox {
 		valueLabel.setTextFill(valueLabel.getText().charAt(0) == '-' ? Color.RED : Color.FORESTGREEN);
 		valueLabel.setAlignment(Pos.CENTER_RIGHT);
 		valueLabel.setPrefSize(200, 65);
-		valueLabel.setPadding(new Insets(0, 10, 0, 0));
 		hbox.getChildren().addAll(dayLabel, monthYearLabel, valueLabel);
 		return hbox;
 	}
 
-	private HBox createContentBox(String icon, String content, Long value) {
+	private HBox createContentBox(GiaoDichDTO giaoDich) throws SQLException {
 		HBox hbox = new HBox();
 		hbox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-
-		Label iconLabel = new Label(icon);
+		hbox.setUserData(giaoDich.getMaGiaoDich());
+		
+		LoaiGiaoDichDTO loaiGiaoDich = LoaiGiaoDichBUS.getLoaiGiaoDichById(giaoDich.getMaLoaiGiaoDich());
+		Label iconLabel = new Label(loaiGiaoDich.getBieuTuong());
 		iconLabel.setAlignment(Pos.CENTER);
 		iconLabel.setFont(Font.font("System", FontWeight.BOLD, 30));
 		iconLabel.setPrefSize(65, 65);
 
-		Label contentLabel = new Label(content);
+		Label contentLabel = new Label(loaiGiaoDich.getTenLoaiGiaoDich());
 		contentLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
 		contentLabel.setPrefSize(175, 65);
 
-		Label valueLabel = new Label(Long.toString(Math.abs(value)));
+		Label valueLabel = new Label(MoneyFormatHelper.format(giaoDich.getGiaTri(), true));
 		valueLabel.setAlignment(Pos.CENTER_RIGHT);
 		valueLabel.setFont(Font.font("System", FontWeight.BOLD, 18));
 		valueLabel.setPrefSize(200, 65);
 
-		if (value < 0) {
+		if (giaoDich.getGiaTri() < 0) {
 			iconLabel.setTextFill(Color.RED);
 			valueLabel.setTextFill(Color.RED);
 		} else {

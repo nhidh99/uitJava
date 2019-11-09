@@ -18,8 +18,8 @@ public class MoneyFormatHelper {
 	public static String format(Long value, boolean prefix) {
 		DecimalFormat formatter = new DecimalFormat("#,###");
 		String output = formatter.format(value);
-		if (prefix) {
-			output = (value < 0 ? "-" : "+") + output;
+		if (prefix && value > 0) {
+			output = "+" + output;
 		}
 		return output;
 	}

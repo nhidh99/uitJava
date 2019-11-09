@@ -32,9 +32,19 @@
 			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/app.css</location>
 		</link>
 		<link>
+			<name>src/application/datepicker.css</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/datepicker.css</location>
+		</link>
+		<link>
 			<name>src/application/login.fxml</name>
 			<type>1</type>
 			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/login.fxml</location>
+		</link>
+		<link>
+			<name>src/application/payment.fxml</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Desktop/uitBundles/uitJava/project/MoneyGrower/src/application/payment.fxml</location>
 		</link>
 		<link>
 			<name>src/application/signup.fxml</name>

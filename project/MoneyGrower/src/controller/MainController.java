@@ -38,13 +38,26 @@ public class MainController {
 		lbNguoiDung.setText(nguoiDung.getTenNguoiDung());
 		lbTaiKhoan.setText(nguoiDung.getTenTaiKhoan());
 		lbSoDu.setText(MoneyFormatHelper.format(nguoiDung.getTongSoDu(), "VND"));
+		loadPaymentBoard();
+	}
+
+	public void loadPaymentBoard() {
 		try {
 			tpSoGiaoDich.getChildren().clear();
-			tpSoGiaoDich.getChildren()
-					.add(new PaymentBoard(Integer.parseInt(lbMaNguoiDung.getText()), LocalDate.now().getMonthValue()));
-		}  catch (SQLException e) {
-			e.printStackTrace();
+			tpSoGiaoDich.getChildren().add(new PaymentBoard(Integer.parseInt(lbMaNguoiDung.getText()),
+					LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+		} catch (SQLException e) {
+			AlertHelper.showAlert("Lỗi", "Lỗi kết nối CSDL!");
 		}
+	}
+
+	public void handleThemGiaoDich() {
+		Stage stage = PopupHelper.createStage("/application/payment.fxml", 370, 700);		
+		FXMLLoader loader = (FXMLLoader) stage.getUserData();
+		GiaoDichController controller = loader.getController();
+		controller.initialize(Integer.parseInt(lbMaNguoiDung.getText()));
+		stage.getScene().setUserData(this);
+		stage.showAndWait();
 	}
 
 	public void handleCapNhatNguoiDung() {
