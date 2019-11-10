@@ -74,4 +74,16 @@ public class NguoiDungDAO {
 		conn.close();
 		return records > 0;
 	}
+
+	public static Long getSoDu(Integer maNguoiDung) throws SQLException {
+		Connection conn = DBHelper.getConnection();
+		String query = "SELECT TongSoDu FROM NguoiDung WHERE MaNguoiDung = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setInt(1, maNguoiDung);
+		ResultSet rs = statement.executeQuery();
+		rs.next();
+		Long output = rs.getLong(1);
+		conn.close();
+		return output;
+	}
 }

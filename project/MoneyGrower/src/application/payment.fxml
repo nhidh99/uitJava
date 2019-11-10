@@ -42,7 +42,7 @@
             <Insets left="33.0" />
          </padding>
       </DatePicker>
-      <TextField fx:id="tfGhiChu" layoutX="52.0" layoutY="408.0" prefHeight="40.0" prefWidth="272.0" promptText="Ghi chú" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
+      <TextField fx:id="tfGiaTri" layoutX="53.0" layoutY="408.0" prefHeight="40.0" prefWidth="272.0" promptText="Giá trị" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
          <font>
             <Font size="16.0" />
          </font>
@@ -50,7 +50,7 @@
             <Insets left="45.0" />
          </padding>
       </TextField>
-      <TextField fx:id="tfGiaTri" layoutX="55.0" layoutY="460.0" prefHeight="40.0" prefWidth="272.0" promptText="Giá trị" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
+      <TextField fx:id="tfGhiChu" layoutX="53.0" layoutY="460.0" prefHeight="40.0" prefWidth="272.0" promptText="Ghi chú" style="-fx-background-radius: 10; -fx-text-fill: #43464B;">
          <font>
             <Font size="16.0" />
          </font>
@@ -77,7 +77,7 @@
             </Button>
          </children>
       </VBox>
-      <Label layoutX="66.0" layoutY="465.0" text="💰" textFill="GREY">
+      <Label layoutX="64.0" layoutY="413.0" text="💰" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -95,7 +95,7 @@
             <Insets bottom="2.0" top="2.0" />
          </padding>
       </Label>
-      <Label layoutX="66.0" layoutY="413.0" text="✏" textFill="GREY">
+      <Label layoutX="64.0" layoutY="465.0" text="✏" textFill="GREY">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

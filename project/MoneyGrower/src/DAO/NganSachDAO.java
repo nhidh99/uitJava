@@ -48,4 +48,28 @@ public class NganSachDAO {
 		return output;
 	}
 
+	public static boolean deleteNganSach(Integer maNganSach) throws SQLException {
+		Connection conn = DBHelper.getConnection();
+		String query = "DELETE FROM NganSach WHERE MaNganSach = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setInt(1, maNganSach);
+		int records = statement.executeUpdate();
+		conn.close();
+		return records > 0;
+	}
+ 
+	public static boolean updateNganSach(NganSachDTO nganSach) throws SQLException {
+		Connection conn = DBHelper.getConnection();
+		String query = "UPDATE NganSach SET MaLoaiGiaoDich = ?, NgayBatDau = ?, NgayKetThuc = ?, GiaTri = ? WHERE MaNganSach = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setInt(1, nganSach.getMaLoaiGiaoDich());
+		statement.setString(2, nganSach.getNgayBatDau().toString());
+		statement.setString(3, nganSach.getNgayKetThuc().toString());
+		statement.setLong(4, nganSach.getGiaTri());
+		statement.setInt(5, nganSach.getMaNganSach());
+		int records = statement.executeUpdate();
+		conn.close();
+		return records > 0;
+	}
+
 }

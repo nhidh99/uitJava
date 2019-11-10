@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import BUS.NganSachBUS;
 import BUS.NguoiDungBUS;
 import BUS.TKGiaoDichBUS;
@@ -53,9 +52,43 @@ public class MainController implements Initializable {
 	Spinner<Integer> snThangTK;
 	@FXML
 	Spinner<Integer> snNamTK;
-
 	@FXML
 	PieChart pcThongKe;
+
+	Integer maNguoiDung;
+
+	private Runnable reloadBudgetBoard = () -> {
+		try {
+			loadBudgetBoard();
+		} catch (SQLException e) {
+			AlertHelper.showAlert("Lỗi", "Không thể tải lại danh sách ngân sách", "Lỗi database");
+		}
+	};
+
+	private Runnable reloadUser = () -> {
+		try {
+			NguoiDungDTO nguoiDung = NguoiDungBUS.getNguoiDungByUsername(lbTaiKhoan.getText());
+			lbNguoiDung.setText(nguoiDung.getTenNguoiDung());
+			lbSoDu.setText(MoneyFormatHelper.format(nguoiDung.getTongSoDu(), "VND"));
+		} catch (SQLException e) {
+			AlertHelper.showAlert("Lỗi", "Không thể tải lại thông tin người dùng", "Lỗi database");
+		}
+	};
+
+	private Runnable reloadPaymentBoard = () -> {
+		try {
+			loadPaymentBoard();
+			loadUserBalance();
+			if (pcThongKe.getTitle().contains("Tổng chi")) {
+				handleThongKeTongChi();
+			} else {
+				handleThongKeTongThu();
+			}
+		} catch (SQLException e) {
+			AlertHelper.showAlert("Lỗi", "Không thể tại lại danh sách giao dịch", "Lỗi database");
+		} catch (Exception ex) {
+		}
+	};
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -65,39 +98,41 @@ public class MainController implements Initializable {
 				new SpinnerValueFactory.IntegerSpinnerValueFactory(1900, 2100, LocalDate.now().getYear()));
 	}
 
-	public void initialize(NguoiDungDTO nguoiDung) {
-		if (nguoiDung.getMaNguoiDung() != null) {
-			lbMaNguoiDung.setText(nguoiDung.getMaNguoiDung().toString());
-		}
+	public void initialize(NguoiDungDTO nguoiDung) throws NumberFormatException, SQLException {
+		maNguoiDung = nguoiDung.getMaNguoiDung();
+		lbMaNguoiDung.setText(maNguoiDung.toString());
 		lbNguoiDung.setText(nguoiDung.getTenNguoiDung());
 		lbTaiKhoan.setText(nguoiDung.getTenTaiKhoan());
 		lbSoDu.setText(MoneyFormatHelper.format(nguoiDung.getTongSoDu(), "VND"));
 
-		try {
-			loadPaymentBoard();
-			loadBudgetBoard();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
+		loadPaymentBoard();
+		loadBudgetBoard();
+		loadUserBalance();
 	}
 
 	public void loadPaymentBoard() throws NumberFormatException, SQLException {
 		tpSoGiaoDich.getChildren().clear();
-		tpSoGiaoDich.getChildren().add(new PaymentBoard(Integer.parseInt(lbMaNguoiDung.getText()), this));
+		tpSoGiaoDich.getChildren().add(new PaymentBoard(maNguoiDung, reloadPaymentBoard));
+	}
 
-		try {
-			if (pcThongKe.getTitle().contains("Tổng chi")) {
-				handleThongKeTongThu();
-			} else
-				handleThongKeTongChi();
-		} catch (Exception e) {
-		}
+	public void loadUserBalance() throws SQLException {
+		Long soDu = NguoiDungBUS.getSoDu(maNguoiDung);
+		lbSoDu.setText(MoneyFormatHelper.format(soDu, "VND"));
 	}
 
 	public void loadBudgetBoard() throws SQLException {
 		tpNganSach.getChildren().clear();
-		for (NganSachDTO nganSach : NganSachBUS.getDSNganSach(Integer.parseInt(lbMaNguoiDung.getText()))) {
-			tpNganSach.getChildren().add(new BudgetBox(nganSach));
+		for (NganSachDTO nganSach : NganSachBUS.getDSNganSach(maNguoiDung)) {
+			BudgetBox budgetBox = new BudgetBox(nganSach);
+			budgetBox.setOnMouseClicked(e -> {
+				Stage stage = PopupHelper.createStage("/application/budget.fxml", 370, 760);
+				stage.getScene().setUserData(reloadBudgetBoard);
+				FXMLLoader loader = (FXMLLoader) stage.getUserData();
+				NganSachController controller = loader.getController();
+				controller.initialize(nganSach);
+				stage.showAndWait();
+			});
+			tpNganSach.getChildren().add(budgetBox);
 		}
 	}
 
@@ -106,7 +141,7 @@ public class MainController implements Initializable {
 		FXMLLoader loader = (FXMLLoader) stage.getUserData();
 		GiaoDichController controller = loader.getController();
 		controller.initialize(Integer.parseInt(lbMaNguoiDung.getText()));
-		stage.getScene().setUserData(this);
+		stage.getScene().setUserData(reloadPaymentBoard);
 		stage.showAndWait();
 	}
 
@@ -117,7 +152,7 @@ public class MainController implements Initializable {
 			FXMLLoader loader = (FXMLLoader) stage.getUserData();
 			NguoiDungController controller = loader.getController();
 			controller.initialize(nguoiDung);
-			stage.getScene().setUserData(this);
+			stage.getScene().setUserData(reloadUser);
 			stage.showAndWait();
 		} catch (SQLException ex) {
 			AlertHelper.showAlert("Lỗi", "Không thể cập nhật người dùng", "Lỗi database");
@@ -127,7 +162,6 @@ public class MainController implements Initializable {
 	public void handleThongKeTongThu() {
 		int thang = snThangTK.getValue();
 		int nam = snNamTK.getValue();
-		int maNguoiDung = Integer.parseInt(lbMaNguoiDung.getText());
 
 		try {
 			pcThongKe.getData().clear();
@@ -151,7 +185,6 @@ public class MainController implements Initializable {
 	public void handleThongKeTongChi() {
 		int thang = snThangTK.getValue();
 		int nam = snNamTK.getValue();
-		int maNguoiDung = Integer.parseInt(lbMaNguoiDung.getText());
 
 		try {
 			pcThongKe.getData().clear();
@@ -177,7 +210,7 @@ public class MainController implements Initializable {
 		FXMLLoader loader = (FXMLLoader) stage.getUserData();
 		NganSachController controller = loader.getController();
 		controller.initialize(Integer.parseInt(lbMaNguoiDung.getText()));
-		stage.getScene().setUserData(this);
+		stage.getScene().setUserData(reloadBudgetBoard);
 		stage.showAndWait();
 	}
 

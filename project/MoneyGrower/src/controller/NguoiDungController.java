@@ -63,16 +63,26 @@ public class NguoiDungController implements Initializable {
 	}
 
 	public void handleCapNhat() {
+		if (!(tfNguoiDung.getText().trim().matches("^([^0-9]{1,30})$")
+				&& pfMatKhau.getText().matches("^.{6,30}$")
+				&& tfTongSoDu.getText().matches("^.{1,}"))) {
+			AlertHelper.showAlert("Thất bại", "Cập nhật thông tin người dùng thất bại",
+					"- Tên người dùng từ 1 - 30 kí tự và không gồm số.\n"
+					+ "- Mật khẩu từ 6 - 30 kí tự.\n"
+					+ "- Số dư phải là một số không âm.");
+			return;
+		}
+		
 		boolean isRetypeCorrectPassword = pfMatKhau.getText().equals(pfMatKhau2.getText());
 		if (isRetypeCorrectPassword) {
 			NguoiDungDTO nguoiDung = new NguoiDungDTO(null, lbTenTaiKhoan.getText(), pfMatKhau.getText(),
-					tfNguoiDung.getText(), Long.parseLong(tfTongSoDu.getText()));
+					tfNguoiDung.getText().trim(), Long.parseLong(tfTongSoDu.getText()));
 			try {
 				if (NguoiDungBUS.updateNguoiDung(nguoiDung)) {
 					AlertHelper.showAlert("Thành công", "Cập nhật thông tin người dùng thành công");
 					Stage stage = (Stage) lbFormatSoDu.getScene().getWindow();
-					MainController controller = (MainController) stage.getScene().getUserData();
-					controller.initialize(nguoiDung);
+					Runnable reloadNguoiDung = (Runnable) stage.getScene().getUserData();
+					reloadNguoiDung.run();
 					stage.close();
 				} else {
 					AlertHelper.showAlert("Thất bại", "Cập nhật thông tin người dùng thất bại");

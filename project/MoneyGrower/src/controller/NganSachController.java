@@ -5,12 +5,14 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import BUS.LoaiGiaoDichBUS;
 import BUS.NganSachBUS;
 import DTO.LoaiGiaoDichDTO;
 import DTO.NganSachDTO;
 import helper.AlertHelper;
+import helper.ConfirmDialogHelper;
 import helper.DateFormatHelper;
 import helper.MoneyFormatHelper;
 import javafx.collections.FXCollections;
@@ -18,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -42,9 +45,9 @@ public class NganSachController implements Initializable {
 	@FXML
 	Label lbTieuDe;
 	@FXML
-	Label lbNgayBatDau;
+	DatePicker dpNgayBatDau;
 	@FXML
-	Label lbNgayKetThuc;
+	DatePicker dpNgayKetThuc;
 
 	@FXML
 	ComboBox<LoaiGiaoDichDTO> cbbLoaiNganSach;
@@ -52,14 +55,59 @@ public class NganSachController implements Initializable {
 	ComboBox<String> cbbMocThoiGian;
 
 	Integer maNguoiDung;
+	Integer maNganSach;
+	boolean isUpdateForm;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		initCbbLoaiNganSach();
 		initCbbMocThoiGian();
+		initDatePickers();
 		initTfGiaTri();
 	}
+
+	public void initialize(NganSachDTO nganSach) {
+		int indexLoaiNganSach = cbbLoaiNganSach.getItems().stream().map(LoaiGiaoDichDTO::getMaLoaiGiaoDich)
+				.collect(Collectors.toList()).indexOf(nganSach.getMaLoaiGiaoDich());
+		cbbLoaiNganSach.getSelectionModel().select(indexLoaiNganSach);
+		dpNgayBatDau.setValue(nganSach.getNgayBatDau());
+		dpNgayKetThuc.setValue(nganSach.getNgayKetThuc());
+		tfGiaTri.setText(nganSach.getGiaTri().toString());
+
+		lbTieuDe.setText("THÔNG TIN NGÂN SÁCH");
+		btnXacNhan.setText("Sửa ngân sách");
+		btnHuyBo.setText("Đóng");
+
+		maNganSach = nganSach.getMaNganSach();
+		maNguoiDung = nganSach.getMaNguoiDung();
+		isUpdateForm = true;
+	}
 	
+	public void initialize(int maNguoiDung) {
+		this.maNguoiDung = maNguoiDung;
+		vbButtons.getChildren().remove(1);
+		cbbMocThoiGian.getSelectionModel().selectFirst();
+	}
+
+	private void initDatePickers() {
+		dpNgayBatDau.setConverter(DateFormatHelper.getDatePickerFormatter());
+		dpNgayBatDau.setValue(LocalDate.now());
+		dpNgayKetThuc.setConverter(DateFormatHelper.getDatePickerFormatter());
+		dpNgayKetThuc.setValue(LocalDate.now());
+
+		dpNgayBatDau.valueProperty().addListener((obs, oldValue, newValue) -> {
+			if (newValue != oldValue) {
+				cbbMocThoiGian.setValue("Mốc thời gian");
+			}
+		});
+
+		dpNgayKetThuc.valueProperty().addListener((obs, oldValue, newValue) -> {
+			if (newValue != oldValue) {
+				cbbMocThoiGian.setValue("Mốc thời gian");
+			}
+		});
+	}
+
 	private void initTfGiaTri() {
 		tfGiaTri.textProperty().addListener((obs, oldValue, newValue) -> {
 			if (!newValue.matches("\\d*")) {
@@ -130,12 +178,14 @@ public class NganSachController implements Initializable {
 				break;
 			}
 			}
-			lbNgayBatDau.setText(DateFormatHelper.fromLocalDate(beginDate));
-			lbNgayKetThuc.setText(DateFormatHelper.fromLocalDate(endDate));
+
+			if (beginDate != null && endDate != null) {
+				dpNgayBatDau.setValue(beginDate);
+				dpNgayKetThuc.setValue(endDate);
+			}
 		});
 
 		cbbMocThoiGian.setItems(FXCollections.observableArrayList("Tuần này", "Tháng này", "Quý này", "Năm nay"));
-		cbbMocThoiGian.getSelectionModel().selectFirst();
 	}
 
 	private void initCbbLoaiNganSach() {
@@ -168,32 +218,56 @@ public class NganSachController implements Initializable {
 		cbbLoaiNganSach.getSelectionModel().selectFirst();
 	}
 
-	public void initialize(int maNguoiDung) {
-		this.maNguoiDung = maNguoiDung;
-		vbButtons.getChildren().remove(1);
-	}
-
 	public void handleXacNhan() {
-		LocalDate ngayBatDau = DateFormatHelper.fromString(lbNgayBatDau.getText());
-		LocalDate ngayKetThuc = DateFormatHelper.fromString(lbNgayKetThuc.getText());
+		if (tfGiaTri.getText().isEmpty() || Long.parseLong(tfGiaTri.getText()) == 0) {
+			AlertHelper.showAlert("Lỗi", "Cập nhật ngân sách thất bại", "Giá trị phải là một số dương");
+			return;
+		}
 		
-		NganSachDTO nganSach = new NganSachDTO(null, cbbLoaiNganSach.getSelectionModel().getSelectedItem().getMaLoaiGiaoDich(), 
-				maNguoiDung, ngayBatDau, ngayKetThuc, Long.valueOf(tfGiaTri.getText()));
+		LocalDate ngayBatDau = dpNgayBatDau.getValue();
+		LocalDate ngayKetThuc = dpNgayKetThuc.getValue();
 		
+		if (ngayBatDau.compareTo(ngayKetThuc) > 0) {
+			AlertHelper.showAlert("Lỗi", "Cập nhật ngân sách thất bại", "Ngày bắt đầu không được lớn hơn ngày kết thúc");
+			return;
+		}
+		
+		NganSachDTO nganSach = new NganSachDTO(maNganSach,
+				cbbLoaiNganSach.getSelectionModel().getSelectedItem().getMaLoaiGiaoDich(), maNguoiDung, ngayBatDau,
+				ngayKetThuc, Long.valueOf(tfGiaTri.getText()));
+
 		try {
-			if (NganSachBUS.insertNganSach(nganSach)) {
-				AlertHelper.showAlert("Thành công", "Thêm ngân sách thành công");
+			boolean isSuccessHandle = isUpdateForm ? NganSachBUS.updateNganSach(nganSach)
+					: NganSachBUS.insertNganSach(nganSach);
+
+			if (isSuccessHandle) {
+				AlertHelper.showAlert("Thành công", "Cập nhật ngân sách thành công");
 				Stage stage = (Stage) tfGiaTri.getScene().getWindow();
-				MainController controller = (MainController) stage.getScene().getUserData();
-				controller.loadBudgetBoard();
+				Runnable reloadBudgetBoard = (Runnable) stage.getScene().getUserData();
+				reloadBudgetBoard.run();
 				stage.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			AlertHelper.showAlert("Thất bại", "Thêm ngân sách thất bại", "Lỗi database");
+			AlertHelper.showAlert("Thất bại", "Cập nhật sách thất bại", "Lỗi database");
 		}
 	}
-	
+
+	public void handleXoa() {
+		if (ConfirmDialogHelper.confirm("Xác nhận xoá ngân sách?")) {
+			try {
+				if (NganSachBUS.deleteNganSach(maNganSach)) {
+					AlertHelper.showAlert("Thành công", "Đã xoá ngân sách");
+					Stage stage = (Stage) tfGiaTri.getScene().getWindow();
+					Runnable reloadBudgetBoard = (Runnable) stage.getScene().getUserData();
+					reloadBudgetBoard.run();
+					stage.close();
+				}
+			} catch (SQLException ex) {
+				AlertHelper.showAlert("Lỗi", "Không thể xoá ngân sách", "Lỗi database");
+			}
+		}
+	}
+
 	public void handleHuyBo() {
 		Stage stage = (Stage) tfGiaTri.getScene().getWindow();
 		stage.close();

@@ -54,6 +54,18 @@ public class DangKiController implements Initializable {
 	}
 
 	public void handleDangKi() {
+		if (!(tfTenNguoiDung.getText().trim().matches("^([^0-9]{1,30})$")
+				&& tfTaiKhoan.getText().trim().matches("^.[A-Za-z0-9]{6,30}$")
+				&& pfMatKhau.getText().matches("^.{6,30}$")
+				&& tfTongSoDu.getText().matches("^.{1,}"))) {
+			AlertHelper.showAlert("Thất bại", "Cập nhật thông tin người dùng thất bại",
+					"- Tên người dùng từ 1 - 30 kí tự và không gồm số.\n"
+					+ "- Tên tài khoản từ 6 - 30 kí tự chỉ gồm số, chữ thường, chữ hoa.\n"
+					+ "- Mật khẩu từ 6 - 30 kí tự.\n"
+					+ "- Số dư phải là một số không âm.");
+			return;
+		}
+		
 		boolean isRetypeCorrectPassword = pfMatKhau.getText().equals(pfMatKhau2.getText());
 		if (isRetypeCorrectPassword) {
 			NguoiDungDTO nguoiDung = new NguoiDungDTO(null, tfTaiKhoan.getText(), pfMatKhau.getText(),

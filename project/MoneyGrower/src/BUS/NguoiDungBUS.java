@@ -24,4 +24,8 @@ public class NguoiDungBUS {
 	public static boolean updateNguoiDung(NguoiDungDTO nguoiDung) throws SQLException {
 		return NguoiDungDAO.updateNguoiDung(nguoiDung);
 	}
+	
+	public static Long getSoDu(Integer maNguoiDung) throws SQLException {
+		return NguoiDungDAO.getSoDu(maNguoiDung);
+	}
 }

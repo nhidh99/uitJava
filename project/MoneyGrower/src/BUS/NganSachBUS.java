@@ -15,4 +15,12 @@ public class NganSachBUS {
 	public static List<NganSachDTO> getDSNganSach(int maNguoiDung) throws SQLException {
 		return NganSachDAO.getDSNganSach(maNguoiDung);
 	}
+
+	public static boolean deleteNganSach(Integer maNganSach) throws SQLException {
+		return NganSachDAO.deleteNganSach(maNganSach);
+	}
+
+	public static boolean updateNganSach(NganSachDTO nganSach) throws SQLException {
+		return NganSachDAO.updateNganSach(nganSach);
+	}
 }

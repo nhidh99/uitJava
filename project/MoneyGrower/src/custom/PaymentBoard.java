@@ -11,7 +11,6 @@ import DTO.GiaoDichDTO;
 import DTO.GiaoDichThangDTO;
 import DTO.LoaiGiaoDichDTO;
 import controller.GiaoDichController;
-import controller.MainController;
 import helper.MoneyFormatHelper;
 import helper.PopupHelper;
 import javafx.fxml.FXMLLoader;
@@ -26,9 +25,9 @@ import javafx.stage.Stage;
 
 public class PaymentBoard extends VBox {
 	
-	MainController mainController;
+	Runnable reloadPaymentBoard;
 
-	public PaymentBoard(int userID, MainController mainController) throws SQLException {		
+	public PaymentBoard(int userID, Runnable reloadPaymentBoard) throws SQLException {		
 		for (GiaoDichThangDTO gdt : GiaoDichThangBUS.getDSGiaoDichThang(userID)) {
 			HBox title = this.createTitleBox(gdt);
 			List<HBox> contents = new ArrayList<>();
@@ -40,7 +39,7 @@ public class PaymentBoard extends VBox {
 			this.getChildren().addAll(contents);
 		}
 		this.setPrefWidth(465);
-		this.mainController = mainController;
+		this.reloadPaymentBoard = reloadPaymentBoard;
 	}
 
 	private String getNameOfMonth(int month) {
@@ -114,7 +113,7 @@ public class PaymentBoard extends VBox {
 			Stage stage = PopupHelper.createStage("/application/payment.fxml", 370, 760);
 			FXMLLoader loader = (FXMLLoader) stage.getUserData();
 			GiaoDichController controller = loader.getController();
-			stage.getScene().setUserData(mainController);
+			stage.getScene().setUserData(reloadPaymentBoard);
 			controller.initialize(giaoDich);
 			stage.showAndWait();
 		});
@@ -123,7 +122,7 @@ public class PaymentBoard extends VBox {
 		vbox.getChildren().add(contentLabel);
 		vbox.setAlignment(Pos.CENTER_LEFT);
 
-		if (giaoDich.getGhiChu() != null) {
+		if (!(giaoDich.getGhiChu() == null || giaoDich.getGhiChu().isEmpty())) {
 			Label noteLabel = new Label(giaoDich.getGhiChu());
 			noteLabel.setFont(Font.font(14));
 			vbox.getChildren().add(noteLabel);

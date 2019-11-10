@@ -40,7 +40,7 @@ public class GiaoDichDAO {
 		statement.setInt(2, giaoDich.getMaLoaiGiaoDich());
 		statement.setString(3, giaoDich.getNgayGiaoDich().toString());
 		statement.setLong(4, giaoDich.getGiaTri());
-		if (giaoDich.getGhiChu().trim().isEmpty()) {
+		if (giaoDich.getGhiChu().isEmpty()) {
 			statement.setNull(5, Types.VARCHAR);
 		}
 		else statement.setString(5, giaoDich.getGhiChu().trim());
@@ -57,7 +57,7 @@ public class GiaoDichDAO {
 		statement.setInt(1, giaoDich.getMaLoaiGiaoDich());
 		statement.setString(2, giaoDich.getNgayGiaoDich().toString());
 		statement.setLong(3, giaoDich.getGiaTri());
-		if (giaoDich.getGhiChu() == null) {
+		if (giaoDich.getGhiChu().isEmpty()) {
 			statement.setNull(4, Types.VARCHAR);
 		}
 		else statement.setString(4, giaoDich.getGhiChu().trim());

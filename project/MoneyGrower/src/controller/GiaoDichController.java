@@ -67,6 +67,7 @@ public class GiaoDichController implements Initializable {
 	public void initialize(Integer maNguoiDung) {
 		this.maNguoiDung = maNguoiDung;
 		vbButtons.getChildren().remove(1);
+		tfGiaTri.requestFocus();
 	}
 
 	public void initialize(GiaoDichDTO giaoDich) {
@@ -86,9 +87,10 @@ public class GiaoDichController implements Initializable {
 		btnXacNhan.setText("Sửa giao dịch");
 		btnHuyBo.setText("Đóng");
 		dpNgayGiaoDich.setValue(giaoDich.getNgayGiaoDich());
-		tfGhiChu.setText(giaoDich.getGhiChu());
+		tfGhiChu.setText(giaoDich.getGhiChu() == null ? "" : giaoDich.getGhiChu());
 		tfGiaTri.setText(giaoDich.getGiaTri().toString());
 		isUpdateForm = true;
+		tfGiaTri.requestFocus();
 	}
 
 	private void initTfGiaTri() {
@@ -157,40 +159,37 @@ public class GiaoDichController implements Initializable {
 	}
 
 	public void handleXacNhan() {
+		if (tfGhiChu.getText().trim().length() > 20 || tfGiaTri.getText().isEmpty()
+				|| Long.valueOf(tfGiaTri.getText()) == 0) {
+			AlertHelper.showAlert("Thất bại", "Cập nhật giao dịch thất bại",
+					"- Ghi chú không quá 20 kí tự.\n" + "- Giá trị phải là một số dương");
+			return;
+		}
+
 		Long giaTri = Long.valueOf(tfGiaTri.getText());
 		if (cbbLoaiGiaoDich.getSelectionModel().getSelectedItem().getGiaoDichThu() == false) {
 			giaTri = -giaTri;
 		}
 
-		GiaoDichDTO giaoDich = new GiaoDichDTO(null,
+		GiaoDichDTO giaoDich = new GiaoDichDTO(maGiaoDich,
 				cbbLoaiGiaoDich.getSelectionModel().getSelectedItem().getMaLoaiGiaoDich(), maNguoiDung,
-				dpNgayGiaoDich.getValue(), giaTri, tfGhiChu.getText());
+				dpNgayGiaoDich.getValue(), giaTri, tfGhiChu.getText().trim());
 
 		try {
-			if (isUpdateForm) {
-				giaoDich.setMaGiaoDich(maGiaoDich);
-				if (GiaoDichBUS.updateGiaoDich(giaoDich)) {
-					AlertHelper.showAlert("Thành công", "Cập nhật giao dịch thành công");
-					Stage stage = (Stage) lbFormatGiaTri.getScene().getWindow();
-					MainController controller = (MainController) stage.getScene().getUserData();
-					controller.loadPaymentBoard();
-					stage.close();
-				} else {
-					AlertHelper.showAlert("Thất bại", "Cập nhật giao dịch thất bại");
-					tfGiaTri.requestFocus();
-				}
-			} else if (GiaoDichBUS.insertGiaoDich(giaoDich)) {
-				AlertHelper.showAlert("Thành công", "Thêm giao dịch thành công");
+			boolean isSuccessHandle = isUpdateForm ? GiaoDichBUS.updateGiaoDich(giaoDich)
+					: GiaoDichBUS.insertGiaoDich(giaoDich);
+			if (isSuccessHandle) {
+				AlertHelper.showAlert("Thành công", "Cập nhật giao dịch thành công");
 				Stage stage = (Stage) lbFormatGiaTri.getScene().getWindow();
-				MainController controller = (MainController) stage.getScene().getUserData();
-				controller.loadPaymentBoard();
+				Runnable reloadPaymentBoard = (Runnable) stage.getScene().getUserData();
+				reloadPaymentBoard.run();
 				stage.close();
 			} else {
-				AlertHelper.showAlert("Thất bại", "Thêm giao dịch thất bại");
+				AlertHelper.showAlert("Thất bại", "Cập nhật giao dịch thất bại");
 				tfGiaTri.requestFocus();
 			}
 		} catch (SQLException ex) {
-			AlertHelper.showAlert("Thất bại", "Thêm giao dịch thất bại", "Lỗi database");
+			AlertHelper.showAlert("Thất bại", "Cập nhật giao dịch thất bại", "Lỗi database");
 		}
 	}
 
@@ -205,15 +204,13 @@ public class GiaoDichController implements Initializable {
 				if (GiaoDichBUS.deleteGiaoDich(maGiaoDich)) {
 					AlertHelper.showAlert("Thành công", "Xoá giao dịch thành công");
 					Stage stage = (Stage) lbFormatGiaTri.getScene().getWindow();
-					MainController controller = (MainController) stage.getScene().getUserData();
-					controller.loadPaymentBoard();
+					Runnable reloadPaymentBoard = (Runnable) stage.getScene().getUserData();
+					reloadPaymentBoard.run();
 					stage.close();
-				}
-				else {
+				} else {
 					AlertHelper.showAlert("Thất bại", "Xoá giao dịch thất bại");
 				}
-			}
-			catch (SQLException ex) {
+			} catch (SQLException ex) {
 				AlertHelper.showAlert("Thất bại", "Xoá giao dịch thất bại", "Lỗi database");
 			}
 		}

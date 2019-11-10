@@ -23,7 +23,6 @@ public class PopupHelper {
 			stage.setScene(scene);
 			return stage;
 		} catch (IOException ex) {
-			ex.printStackTrace();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Lỗi");
 			alert.setHeaderText("Không thể mở pop-up stage!");

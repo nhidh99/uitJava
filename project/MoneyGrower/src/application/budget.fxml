@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -46,7 +47,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #4267B2; -fx-background-radius: 10;" text="Xoá ngân sách" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#handleXoa" prefHeight="41.0" prefWidth="272.0" style="-fx-border-color: transparent; -fx-background-color: #4267B2; -fx-background-radius: 10;" text="Xoá ngân sách" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -111,15 +112,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbNgayBatDau" layoutX="185.0" layoutY="359.0" text="Label" textFill="GREY">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbNgayKetThuc" layoutX="185.0" layoutY="414.0" text="Label" textFill="GREY">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <DatePicker fx:id="dpNgayKetThuc" layoutX="185.0" layoutY="410.0" prefHeight="37.0" prefWidth="141.0" style="-fx-font-size: 16;" />
+      <DatePicker fx:id="dpNgayBatDau" layoutX="185.0" layoutY="355.0" prefHeight="37.0" prefWidth="141.0" style="-fx-font-size: 16;" />
    </children>
 </AnchorPane>
