@@ -79,6 +79,7 @@ public class MainController implements Initializable {
 		try {
 			loadPaymentBoard();
 			loadUserBalance();
+			loadBudgetBoard();
 			if (pcThongKe.getTitle().contains("Tổng chi")) {
 				handleThongKeTongChi();
 			} else {

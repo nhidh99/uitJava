@@ -13,19 +13,21 @@ import helper.DBHelper;
 public class GiaoDichThangDAO {
 	public static List<GiaoDichThangDTO> getDSGiaoDichThang(Integer maNguoiDung) throws SQLException {
 		Connection conn = DBHelper.getConnection();
-		String query = "SELECT * FROM view_GiaoDichThang WHERE MaNguoiDung = ? ORDER BY NgayGiaoDich DESC";
-		PreparedStatement statement = conn.prepareStatement(query);
-		statement.setInt(1, maNguoiDung);
-		ResultSet rs = statement.executeQuery();
+		try {
+			String query = "SELECT * FROM view_GiaoDichThang WHERE MaNguoiDung = ? ORDER BY NgayGiaoDich DESC";
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setInt(1, maNguoiDung);
+			ResultSet rs = statement.executeQuery();
 
-		List<GiaoDichThangDTO> output = new ArrayList<>();
-		while (rs.next()) {
-			GiaoDichThangDTO gdt = new GiaoDichThangDTO(maNguoiDung,
-					rs.getTimestamp("NgayGiaoDich").toLocalDateTime().toLocalDate(), 
-					rs.getLong("TongGiaTri"));
-			output.add(gdt);
+			List<GiaoDichThangDTO> output = new ArrayList<>();
+			while (rs.next()) {
+				GiaoDichThangDTO gdt = new GiaoDichThangDTO(maNguoiDung,
+						rs.getTimestamp("NgayGiaoDich").toLocalDateTime().toLocalDate(), rs.getLong("TongGiaTri"));
+				output.add(gdt);
+			}
+			return output;
+		} finally {
+			conn.close();
 		}
-		conn.close();
-		return output;
 	}
 }

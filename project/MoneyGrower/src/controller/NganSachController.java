@@ -82,7 +82,7 @@ public class NganSachController implements Initializable {
 		maNguoiDung = nganSach.getMaNguoiDung();
 		isUpdateForm = true;
 	}
-	
+
 	public void initialize(int maNguoiDung) {
 		this.maNguoiDung = maNguoiDung;
 		vbButtons.getChildren().remove(1);
@@ -223,15 +223,16 @@ public class NganSachController implements Initializable {
 			AlertHelper.showAlert("Lỗi", "Cập nhật ngân sách thất bại", "Giá trị phải là một số dương");
 			return;
 		}
-		
+
 		LocalDate ngayBatDau = dpNgayBatDau.getValue();
 		LocalDate ngayKetThuc = dpNgayKetThuc.getValue();
-		
+
 		if (ngayBatDau.compareTo(ngayKetThuc) > 0) {
-			AlertHelper.showAlert("Lỗi", "Cập nhật ngân sách thất bại", "Ngày bắt đầu không được lớn hơn ngày kết thúc");
+			AlertHelper.showAlert("Lỗi", "Cập nhật ngân sách thất bại",
+					"Ngày bắt đầu không được lớn hơn ngày kết thúc");
 			return;
 		}
-		
+
 		NganSachDTO nganSach = new NganSachDTO(maNganSach,
 				cbbLoaiNganSach.getSelectionModel().getSelectedItem().getMaLoaiGiaoDich(), maNguoiDung, ngayBatDau,
 				ngayKetThuc, Long.valueOf(tfGiaTri.getText()));
@@ -246,6 +247,13 @@ public class NganSachController implements Initializable {
 				Runnable reloadBudgetBoard = (Runnable) stage.getScene().getUserData();
 				reloadBudgetBoard.run();
 				stage.close();
+			} else {
+				if (isUpdateForm) {
+					AlertHelper.showAlert("Thất bại", "Cập nhật ngân sách thất bại");
+				} else {
+					AlertHelper.showAlert("Thất bại", "Cập nhật ngân sách thất bại",
+							"Ngân sách cần thêm có thời hạn đã tồn tại");
+				}
 			}
 		} catch (SQLException e) {
 			AlertHelper.showAlert("Thất bại", "Cập nhật sách thất bại", "Lỗi database");

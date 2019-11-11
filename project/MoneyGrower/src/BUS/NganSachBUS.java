@@ -9,6 +9,9 @@ import DTO.NganSachDTO;
 public class NganSachBUS {
 
 	public static boolean insertNganSach(NganSachDTO nganSach) throws SQLException {
+		if (NganSachDAO.checkNganSach(nganSach)) {
+			return false;
+		}
 		return NganSachDAO.insertNganSach(nganSach);
 	}
 
