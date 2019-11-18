@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<updateDescriptor baseUrl="">
+  <entry targetMediaFileId="58" updatableVersionMin="" updatableVersionMax="" fileName="Money_Grower_windows-x32_1_0_0.exe" newVersion="1.0.0" newMediaFileId="58" fileSize="2787840" md5Sum="b83925db39ae973d73d44ba8b65032f7" sha256Sum="eae49701cd5c11662df34dec164c3e2b64d36ce28ffaae1495a021522cdf2381" bundledJre="" archive="false" singleBundle="false">
+    <comment language="en" />
+  </entry>
+</updateDescriptor>
