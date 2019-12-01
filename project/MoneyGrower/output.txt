@@ -1,3 +1,0 @@
-# List of generated media files. The columns are tab-separated:
-# id | media file type | display name | media file path
-58	windows	Windows	C:\Users\Admin\Desktop\uitBundles\uitJava\project\MoneyGrower\Money_Grower_windows-x32_1_0_0.exe
