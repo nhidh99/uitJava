@@ -1,0 +1,49 @@
+body {
+	font-family: "Arial";
+	background: #d8dfeb;
+	margin: 0;
+}
+
+.center-box {
+	margin: 0px auto;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	background: white;
+	top: 140px;
+	width: 400px;
+	padding: 10px 30px;
+	border-radius: 5px;  
+	box-shadow: 1px 1px #CCCCCC;
+}
+
+div#all-content {
+	width: 600px;
+	padding: 20px 0px 50px 0px;
+	margin: 0px auto;
+	text-align: center;
+}
+
+img#icon {
+	width: 80px;
+	height: 80px;
+	margin-bottom: -10px;
+	vertical-align: middle;
+}
+
+p#title {
+	font-size: 1.5em;
+	display: inline;
+	color: white;
+	vertical-align: middle;
+}
+
+header#top {
+	padding: 20px 10px;
+	text-align: center;
+	background: #1f2730;
+	padding-bottom: 150px;
+}
