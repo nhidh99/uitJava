@@ -9,13 +9,13 @@
 	</welcome-file-list>
 
 	<servlet>
-		<servlet-name>LoginServlet</servlet-name>
-		<servlet-class>controller.LoginController</servlet-class>
+		<servlet-name>ServletController</servlet-name>
+		<servlet-class>controller.ServletController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/index</url-pattern>
+		<servlet-name>ServletController</servlet-name>
+		<url-pattern>/view</url-pattern>
 	</servlet-mapping>
 
 	<jsp-config>

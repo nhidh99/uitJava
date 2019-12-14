@@ -4,43 +4,43 @@ import java.time.LocalDate;
 
 public class TransactionModel {
 	private int transactionID;
-	private int nameID;
 	private int userID;
+	private TypeModel type;
 	private LocalDate date;
 	private long price;
 	private String note;
 	
-	public TransactionModel(int transactionID, int nameID, int userID, LocalDate date, long price, String note) {
+	public TransactionModel(int transactionID, int userID, TypeModel type, LocalDate date, long price, String note) {
 		this.transactionID = transactionID;
-		this.nameID = nameID;
 		this.userID = userID;
+		this.type = type;
 		this.date = date;
 		this.price = price;
 		this.note = note;
 	}
 
-	public TransactionModel(int nameID, int userID, LocalDate date, long price, String note) {
-		this.nameID = nameID;
+	public TransactionModel(int userID, TypeModel type, LocalDate date, long price, String note) {
 		this.userID = userID;
+		this.type = type;
 		this.date = date;
 		this.price = price;
 		this.note = note;
 	}
-	
+
+	public TypeModel getType() {
+		return type;
+	}
+
+	public void setType(TypeModel type) {
+		this.type = type;
+	}
+
 	public int getTransactionID() {
 		return transactionID;
 	}
 	
 	public void setTransactionID(int transactionID) {
 		this.transactionID = transactionID;
-	}
-	
-	public int getNameID() {
-		return nameID;
-	}
-	
-	public void setNameID(int nameID) {
-		this.nameID = nameID;
 	}
 	
 	public int getUserID() {

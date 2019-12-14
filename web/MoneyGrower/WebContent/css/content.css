@@ -16,8 +16,13 @@ body {
 	top: 140px;
 	width: 400px;
 	padding: 10px 30px;
-	border-radius: 5px;  
+	border-radius: 5px;
 	box-shadow: 1px 1px #CCCCCC;
+}
+
+tbody {
+	display: table;
+	width: 100%;
 }
 
 div#all-content {
@@ -36,9 +41,10 @@ img#icon {
 
 p#title {
 	font-size: 1.5em;
-	display: inline;
+	font-weight: bold; display : inline;
 	color: white;
 	vertical-align: middle;
+	display: inline;
 }
 
 header#top {

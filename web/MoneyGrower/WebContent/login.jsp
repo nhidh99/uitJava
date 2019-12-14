@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="_header.jsp" />
 	<div id="all-content">
-		<form id="login" class="center-box" method="POST" action="index">
+		<form id="login" class="center-box" method="POST" action="view">
 			<p id="login-label">ĐĂNG NHẬP</p>
 			<input type="text" placeholder="Tài khoản" autofocus name="username"/><br /> <input
 				type="password" placeholder="Mật khẩu" name="password"/><br /> <input

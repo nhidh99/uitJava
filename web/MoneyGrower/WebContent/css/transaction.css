@@ -1,0 +1,54 @@
+td {
+	height: 50px;
+	vertical-align: middle;
+}
+
+.transaction-icon {
+	font-size: 2em;
+	text-align: center;
+	width: 50px;
+	padding-left: 15px;
+	padding-bottom: 5px;
+}
+
+.transaction-detail {
+	text-align: left;
+}
+
+.transaction-summary {
+	font-weight: bold;
+	font-size: 1.25em;
+}
+
+.transaction-date {
+	text-align: left;
+}
+
+.transaction-price {
+	float: right;
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+.transaction-title {
+	margin-left: 5px;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+
+.transaction-note {
+	margin-left: 5px;
+	font-size: 0.8em;
+}
+
+.divider {
+	height: 0.5em;
+}
+
+.green {
+	color: green;
+}
+
+.red {
+	color: red;
+}

@@ -8,13 +8,32 @@ import service.LoginService;
 import service.TransactionService;
 
 @SuppressWarnings("serial")
-public class LoginController extends HttpServlet {
+public class ServletController extends HttpServlet {
 
+	private TransactionService transactionService = new TransactionService();
 	private LoginService loginService = new LoginService();
-
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		processRequest(request, response);
+	}
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		processRequest(request, response);
+	}
+	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+				
+		String action = request.getServletPath();
+		switch (action) {
+		case "/view":
+			viewTransaction(request, response);
+			break;
+		}
+	}
+	
+	private void viewTransaction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
@@ -24,9 +43,8 @@ public class LoginController extends HttpServlet {
 
 			if (isCorrectUser) {
 				var user = loginService.getUserByUsername(username);
-				var transactionService = new TransactionService();
 				var transactionList = transactionService.getTransactionsOfUser(user.getUserID());
-				request.setAttribute("transactions", transactionList);
+				request.setAttribute("transactionsMap", transactionList);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			} else {
 				request.setAttribute("isFailLogin", true);
@@ -35,9 +53,5 @@ public class LoginController extends HttpServlet {
 		} catch (Exception e) {
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		processRequest(request, response);
 	}
 }
