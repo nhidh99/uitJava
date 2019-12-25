@@ -3,6 +3,21 @@ td {
 	vertical-align: middle;
 }
 
+.user-info, .user-value {
+	height: 25px;
+}
+
+.user-info {
+	padding-left: 15px; text-align : left;
+	font-weight: bold;
+	text-align: left;
+}
+
+.user-value {
+	text-align: right;
+	line-height: 25px !important;
+}
+
 .transaction-icon {
 	font-size: 2em;
 	text-align: center;
@@ -26,8 +41,7 @@ td {
 
 .transaction-price {
 	float: right;
-	line-height: 50px;
-	vertical-align: middle;
+	line-height: 56px;
 }
 
 .transaction-title {
@@ -51,4 +65,18 @@ td {
 
 .red {
 	color: red;
+}
+
+#btn-add {
+	width: 50px;
+	height: 50px;
+	font-size: 2em;
+	color: white;
+	background-color: forestgreen;
+	font-weight: bold;
+	border: 1px solid transparent;
+	border-radius: 50%;
+	margin: 20px 20px 0px 0px;
+	position: absolute;
+	right: 0;
 }

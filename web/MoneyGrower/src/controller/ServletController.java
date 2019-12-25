@@ -44,6 +44,7 @@ public class ServletController extends HttpServlet {
 			if (isCorrectUser) {
 				var user = loginService.getUserByUsername(username);
 				var transactionList = transactionService.getTransactionsOfUser(user.getUserID());
+				request.setAttribute("user", user);
 				request.setAttribute("transactionsMap", transactionList);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			} else {

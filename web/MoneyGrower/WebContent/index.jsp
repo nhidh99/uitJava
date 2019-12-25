@@ -10,13 +10,32 @@
 <link href="css/transaction.css" rel="stylesheet" />
 </head>
 <body>
+	<button id="btn-add">+</button>
 	<jsp:include page="_header.jsp"></jsp:include>
 	<div id="all-content">
 		<table class="center-box table">
 			<tr>
-				<td class="divider" colspan="3"><hr></td>
+				<td class="user-info" colspan="2">Người dùng:</td>
+				<td class="user-value">${user.name}</td>
 			</tr>
+			<tr>
+				<td class="user-info" colspan="2">Số dư:</td>
+				<c:choose>
+					<c:when test="${user.income > 0}">
+						<td class="green transaction-price user-value "><fmt:formatNumber
+								type="number" groupingUsed="true" value="${user.income}" />đ</td>
+					</c:when>
+					<c:otherwise>
+						<td class="red transaction-price user-value "><fmt:formatNumber
+								type="number" groupingUsed="true" value="${user.income}" />đ</td>
+					</c:otherwise>
+				</c:choose>
+			</tr>
+
 			<c:forEach items="${transactionsMap}" var="entry">
+				<tr>
+					<td class="divider" colspan="3"><hr></td>
+				</tr>
 				<c:set var="totalPrice" value="${0}" />
 				<c:forEach items="${entry.value}" var="transaction">
 					<c:set var="totalPrice" value="${totalPrice + transaction.price}" />
@@ -60,9 +79,6 @@
 						</c:choose>
 					</tr>
 				</c:forEach>
-				<tr>
-					<td class="divider" colspan="3"><hr></td>
-				</tr>
 			</c:forEach>
 		</table>
 	</div>
