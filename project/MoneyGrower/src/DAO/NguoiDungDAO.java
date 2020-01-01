@@ -103,4 +103,20 @@ public class NguoiDungDAO {
 			conn.close();
 		}
 	}
+
+	public static NguoiDungDTO getNguoiDungById(int id) throws SQLException {
+		Connection conn = DBHelper.getConnection();
+		try {
+			String query = "SELECT * FROM NguoiDung WHERE MaNguoiDung = ?";
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			NguoiDungDTO output = new NguoiDungDTO(rs.getInt("MaNguoiDung"), rs.getString("TenTaiKhoan"),
+					rs.getString("MatKhau"), rs.getString("TenNguoiDung"), rs.getLong("TongSoDu"));
+			return output;
+		} finally {
+			conn.close();
+		}
+	}
 }

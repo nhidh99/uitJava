@@ -13,6 +13,10 @@ public class NguoiDungBUS {
 	public static NguoiDungDTO getNguoiDungByUsername(String username) throws SQLException {		
 		return NguoiDungDAO.getNguoiDungByUsername(username);
 	}
+	
+	public static NguoiDungDTO getNguoiDungById(int id) throws SQLException {
+		return NguoiDungDAO.getNguoiDungById(id);
+	}
 
 	public static boolean dangKi(NguoiDungDTO nguoiDung) throws SQLException {
 		if (NguoiDungDAO.checkDangKi(nguoiDung)) {
@@ -28,4 +32,5 @@ public class NguoiDungBUS {
 	public static Long getSoDu(Integer maNguoiDung) throws SQLException {
 		return NguoiDungDAO.getSoDu(maNguoiDung);
 	}
+
 }

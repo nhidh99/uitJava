@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import custom.BudgetBox;
 import custom.PaymentBoard;
 import helper.AlertHelper;
 import helper.MoneyFormatHelper;
+import helper.PDFHelper;
 import helper.PopupHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -213,6 +215,18 @@ public class MainController implements Initializable {
 		controller.initialize(Integer.parseInt(lbMaNguoiDung.getText()));
 		stage.getScene().setUserData(reloadBudgetBoard);
 		stage.showAndWait();
+	}
+
+	public void handleXuatPDF() {
+		int thang = snThangTK.getValue();
+		int nam = snNamTK.getValue();
+		try {
+			PDFHelper.createThongKe(nam, thang, maNguoiDung);
+		} catch (IOException e) {
+			AlertHelper.showAlert("Lỗi", "Không thể xuất PDF", "Lỗi đường dẫn thư mục");			
+		} catch (SQLException e) {
+			AlertHelper.showAlert("Lỗi", "Không thể xuất PDF", "Lỗi kết nối CSDL");
+		}
 	}
 
 	public void handleDangXuat() {
