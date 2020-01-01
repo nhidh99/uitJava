@@ -223,7 +223,7 @@ public class MainController implements Initializable {
 		try {
 			PDFHelper.createThongKe(nam, thang, maNguoiDung);
 		} catch (IOException e) {
-			AlertHelper.showAlert("Lỗi", "Không thể xuất PDF", "Lỗi đường dẫn thư mục");			
+			AlertHelper.showAlert("Lỗi", "Không thể xuất PDF", "Lỗi đường dẫn thư mục");
 		} catch (SQLException e) {
 			AlertHelper.showAlert("Lỗi", "Không thể xuất PDF", "Lỗi kết nối CSDL");
 		}

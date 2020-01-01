@@ -22,7 +22,7 @@ public class LoaiGiaoDichDAO {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			LoaiGiaoDichDTO output = new LoaiGiaoDichDTO(id, rs.getString("TenLoaiGiaoDich"),
-					rs.getBoolean("GiaoDichThu"), rs.getString("BieuTuong"));
+					rs.getBoolean("GiaoDichThu"));
 			conn.close();
 			return output;
 		} finally {
@@ -39,7 +39,7 @@ public class LoaiGiaoDichDAO {
 			List<LoaiGiaoDichDTO> output = new ArrayList<>();
 			while (rs.next()) {
 				LoaiGiaoDichDTO lgd = new LoaiGiaoDichDTO(rs.getInt("MaLoaiGiaoDich"), rs.getString("TenLoaiGiaoDich"),
-						rs.getBoolean("GiaoDichThu"), rs.getString("BieuTuong"));
+						rs.getBoolean("GiaoDichThu"));
 				output.add(lgd);
 			}
 			return output;
@@ -57,7 +57,7 @@ public class LoaiGiaoDichDAO {
 			List<LoaiGiaoDichDTO> output = new ArrayList<>();
 			while (rs.next()) {
 				LoaiGiaoDichDTO lgd = new LoaiGiaoDichDTO(rs.getInt("MaLoaiGiaoDich"), rs.getString("TenLoaiGiaoDich"),
-						rs.getBoolean("GiaoDichThu"), rs.getString("BieuTuong"));
+						rs.getBoolean("GiaoDichThu"));
 				output.add(lgd);
 			}
 			return output;

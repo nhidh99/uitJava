@@ -186,7 +186,7 @@ public class PDFHelper {
 		}
 
 		contents.close();
-		String filePath = String.format("./bc/BC_%02d_%d_%d.pdf", thang, nam, maNguoiDung);
+		String filePath = String.format("bc/BC_%02d_%d_%d.pdf", thang, nam, maNguoiDung);
 		doc.save(filePath);
 		doc.close();
 		Desktop.getDesktop().open(new File(filePath));

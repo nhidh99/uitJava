@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: quanlitaichinh
+-- Host: 127.0.0.1    Database: quanlitaichinh
 -- ------------------------------------------------------
 -- Server version	8.0.17
 
@@ -38,7 +38,7 @@ CREATE TABLE `nguoidung` (
 
 LOCK TABLES `nguoidung` WRITE;
 /*!40000 ALTER TABLE `nguoidung` DISABLE KEYS */;
-INSERT INTO `nguoidung` VALUES (10001,'nhidh99','nhidh99','Đinh Hoàng Nhi',165000),(10003,'truongpt','truongpt','Phạm Trung Trường',100000),(10004,'datvt','datvt','Vương Thịnh Đạt',3000000);
+INSERT INTO `nguoidung` VALUES (10001,'nhidh99','nhidh99','Đinh Hoàng Nhi',285000),(10003,'truongpt','truongpt','Phạm Trung Trường',100000),(10004,'datvt','datvt','Vương Thịnh Đạt',3000000);
 /*!40000 ALTER TABLE `nguoidung` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-11 13:46:35
+-- Dump completed on 2020-01-01 23:22:13

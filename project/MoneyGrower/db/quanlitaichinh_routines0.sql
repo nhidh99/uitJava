@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: quanlitaichinh
+-- Host: 127.0.0.1    Database: quanlitaichinh
 -- ------------------------------------------------------
 -- Server version	8.0.17
 
@@ -123,4 +123,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-11 13:46:37
+-- Dump completed on 2020-01-01 23:22:14
